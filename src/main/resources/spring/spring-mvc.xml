@@ -15,7 +15,6 @@
     <context:component-scan base-package="dd.util"/>
     <context:component-scan base-package="dd.mq"/>
 
-
     <!-- 支持异步方法执行 -->
     <task:annotation-driven />
 
@@ -49,8 +48,5 @@
         <!-- 内存中的最大值 -->
         <property name="maxInMemorySize" value="40960"/>
     </bean>
-
-    <bean class="dd.util.SpringContextHelp"/>
-
 
 </beans>
