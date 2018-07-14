@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:p="http://www.springframework.org/schema/p"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+        xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context-3.1.xsd
+            http://www.springframework.org/schema/rabbit
+            http://www.springframework.org/schema/rabbit/spring-rabbit-1.6.xsd">
+    <!--配置connection-factory，指定连接rabbit server参数-->
+
+    <!--<bean id="connectionFactory" class="org.springframework.amqp.rabbit.connection.CachingConnectionFactory">-->
+        <!--<property name="host" value="localhost"/>-->
+        <!--<property name="port" value="5672"/>-->
+        <!--<property name="username" value="guest"/>-->
+        <!--<property name="password" value="guest"/>-->
+    <!--</bean>-->
+
+    <!--本地模拟需要另外一个工程，模拟发送消息，此web工程属于消费者，来接受消息-->
+
+    <!--连接工厂-->
+    <rabbit:connection-factory id="connectionFactory" host="localhost" />
+
+    <!--amqpTemplate-->
+    <rabbit:template id="amqpTemplate" connection-factory="connectionFactory" exchange="si.test.exchange"/>
+
+    <!--admin set-->
+    <rabbit:admin connection-factory="connectionFactory" />
+
+    <!--set queue-->
+    <rabbit:queue name="si.test.queue" id="si.test.queue"/>
+
+    <!---->
+    <rabbit:direct-exchange name="si.test.exchange">
+        <rabbit:bindings>
+            <rabbit:binding queue="si.test.queue" key="si.test.queue" />
+        </rabbit:bindings>
+    </rabbit:direct-exchange>
+
+    <!-- queue litener 观察 监听模式 当有消息到达时会通知监听在对应队列上的监听对象 -->
+    <rabbit:listener-container connection-factory="connectionFactory">
+        <!--监听的方法-->
+        <rabbit:listener queue-names="si.test.queue" ref="consumer" method="onMessage" />
+    </rabbit:listener-container>
+
+    <!--<rabbit:admin connection-factory="connectionFactory"/>-->
+
+    <!--&lt;!&ndash;定义queue&ndash;&gt;-->
+    <!--<rabbit:queue id="com.mj.test" name="com.mj.test" durable="true" auto-delete="false" exclusive="false"/>-->
+
+    <!--&lt;!&ndash; 定义direct exchange，绑定com.mj.test queue &ndash;&gt;-->
+    <!--<rabbit:direct-exchange name="myChange" durable="true" auto-delete="false">-->
+    <!--<rabbit:bindings>-->
+    <!--<rabbit:binding queue="com.mj.test" key="hello"></rabbit:binding>-->
+    <!--</rabbit:bindings>-->
+    <!--</rabbit:direct-exchange>-->
+
+    <!--&lt;!&ndash;定义rabbit template用于数据的接收和发送&ndash;&gt;-->
+    <!--<rabbit:template id="myAmqpTemplate" connection-factory="connectionFactory" exchange="myChange" />-->
+
+    <!--&lt;!&ndash; 接受 &ndash;&gt;-->
+    <bean id="consumer" class="dd.mq.Customer"></bean>
+    <!--<rabbit:listener-container connection-factory="connectionFactory">-->
+    <!--<rabbit:listener queues="com.mj.test" ref="consumer"/>-->
+    <!--</rabbit:listener-container>-->
+
+</beans>
