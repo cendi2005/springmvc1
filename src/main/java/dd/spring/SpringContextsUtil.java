@@ -1,11 +1,9 @@
-package dd.util;
+package dd.spring;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
 
 /**
  * Spring容器上下文工具类，用于获取当前的Spring容器
@@ -18,8 +16,8 @@ public class SpringContextsUtil implements ApplicationContextAware {
     public static ApplicationContext applicationContext;
 
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        applicationContext=applicationContext;
+    public void setApplicationContext(ApplicationContext context) throws BeansException {
+        applicationContext=context;
     }
     /**
      * 根据类型获得bean
@@ -31,7 +29,7 @@ public class SpringContextsUtil implements ApplicationContextAware {
      * 根据名称名称获得bean
      */
     public static Object getBean(String name){
-        System.out.println("applicationContext:"+applicationContext);
+        System.out.println("SpringContextsUtil applicationContext:"+applicationContext);
         return applicationContext.getBean(name);
     }
 
