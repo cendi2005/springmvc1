@@ -47,6 +47,7 @@ public class BookController {
         System.out.println("master change");
         System.out.println("dev1");
         System.out.println("dev2");
+        System.out.println("dev3");
 
         return "hello"+bookService.selectByPrimaryKey(1L);
     }
