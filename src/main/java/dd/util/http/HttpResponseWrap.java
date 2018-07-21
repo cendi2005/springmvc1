@@ -1,7 +1,5 @@
-package dd.util;
+package dd.util.http;
 
-
-import lombok.Data;
 
 public class HttpResponseWrap {
 

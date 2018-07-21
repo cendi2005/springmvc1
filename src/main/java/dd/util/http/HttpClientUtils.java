@@ -1,4 +1,4 @@
-package dd.util;
+package dd.util.http;
 
 import org.apache.commons.codec.CharEncoding;
 import org.apache.http.HttpEntity;
@@ -38,6 +38,7 @@ public class HttpClientUtils {
      */
     public static HttpResponseWrap post(String url, String jsonParameters, Map<String,String> headers, String charset) {
 
+
         // http请求包装体
         HttpResponseWrap httpResponseWrap = new HttpResponseWrap();
 
@@ -47,10 +48,11 @@ public class HttpClientUtils {
 
         CloseableHttpResponse closeableHttpResponse = null;
 
-        // 设置参数
+        // 设置参数,字符集为utf-8
         if(!StringUtils.isEmpty(jsonParameters)) {
             httpPost.setEntity(new StringEntity(jsonParameters, CharEncoding.UTF_8));
         }
+
         // 设置消息头
         if(!CollectionUtils.isEmpty(headers)){
             for (Map.Entry<String, String> entry : headers.entrySet()) {

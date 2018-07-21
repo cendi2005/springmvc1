@@ -13,21 +13,21 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
-    from books
+    from book
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from books
+    delete from book
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="dd.pojo.Book" >
-    insert into books (id, title, price, 
+    insert into book (id, title, price, 
       publishDate)
     values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, 
       #{publishdate,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="dd.pojo.Book" >
-    insert into books
+    insert into book
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -58,7 +58,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="dd.pojo.Book" >
-    update books
+    update book
     <set >
       <if test="title != null" >
         title = #{title,jdbcType=VARCHAR},
@@ -73,7 +73,7 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="dd.pojo.Book" >
-    update books
+    update book
     set title = #{title,jdbcType=VARCHAR},
       price = #{price,jdbcType=DECIMAL},
       publishDate = #{publishdate,jdbcType=TIMESTAMP}

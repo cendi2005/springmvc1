@@ -1,12 +1,17 @@
 package dd.controller;
+
 import dd.service.BookService;
+import dd.service.impl.MyService;
+import dd.spring.ExampleBean;
 import dd.util.redis.JedisClientSingle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import javax.annotation.Resource;
+import java.util.List;
 
 
 @Controller
@@ -19,6 +24,12 @@ public class BookController {
     @Resource
     private BookService bookService;
 
+    @Resource
+    private MyService myService;
+
+    @Resource
+    private ExampleBean exampleBean;
+
 
     @Resource
     private JedisClientSingle jedisClientSingle;
@@ -28,11 +39,11 @@ public class BookController {
     public String test(){
 
         jedisClientSingle.set("hello","workd");
-        logger.debug("============debug:hello");
-        logger.info("============info:hello");
-        logger.error("============error:hello");
-        logger.trace("============trace:hello");
-        logger.warn("============warn:hello");
+        myService.test();
+        List<String> list = exampleBean.getWhiteList();
+        System.out.println("ExampleBean:================="+list.size());
+
+        bookService.insert(null);
 
         return "hello"+bookService.selectByPrimaryKey(1L);
     }

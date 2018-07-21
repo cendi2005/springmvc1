@@ -20,4 +20,11 @@ public class BookServiceImpl implements BookService {
         BeanUtils.copyProperties(book,bookVO);
         return bookVO;
     }
+
+    @Override
+    public int insert(Book record) {
+        Book book = new Book();
+        book.setTitle("testjava");
+        return bookMapper.insertSelective(book);
+    }
 }
