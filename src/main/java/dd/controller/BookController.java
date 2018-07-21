@@ -44,6 +44,7 @@ public class BookController {
         System.out.println("ExampleBean:================="+list.size());
 
         bookService.insert(null);
+        System.out.println("dev1");
 
         return "hello"+bookService.selectByPrimaryKey(1L);
     }
