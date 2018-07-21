@@ -126,6 +126,7 @@
                 <!-- read or master   -->
                 <entry key="master" value-ref="masterDataSource"/>
             </map>
+
         </property>
         <property name="defaultTargetDataSource" ref="masterDataSource"/>
 

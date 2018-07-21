@@ -102,6 +102,13 @@ public class HttpClientUtils {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            try {
+                if(closeableHttpResponse!=null){
+                    closeableHttpResponse.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return httpResponseWrap;
     }

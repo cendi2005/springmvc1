@@ -10,5 +10,6 @@
     <import resource="classpath:spring/spring-redis.xml"/>
     <import resource="classpath:spring/spring-quartz.xml"/>
     <import resource="classpath:spring/spring-properties.xml"/>
+    <import resource="classpath:spring/spring-interceptor.xml"/>
     <!--<import resource="classpath:spring/spring-rabbitmq.xml"/>-->
 </beans>

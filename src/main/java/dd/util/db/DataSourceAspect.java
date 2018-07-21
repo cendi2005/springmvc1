@@ -16,15 +16,20 @@ public class DataSourceAspect
     {
 
         Object target = point.getTarget();
+        // 方法名
         String method = point.getSignature().getName();
+        // 接口
         Class<?>[] classz = target.getClass().getInterfaces();
+
         // 获取目标类的接口， 所以@DataSource需要写在接口上
         Class<?>[] parameterTypes = ((MethodSignature) point.getSignature())
                 .getMethod().getParameterTypes();
 
         try
         {
+            // 方法
             Method m = classz[0].getMethod(method, parameterTypes);
+            // 数据源注解
             if (m != null && m.isAnnotationPresent(DataSource.class))
             {
                 DataSource data = m.getAnnotation(DataSource.class);
