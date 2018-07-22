@@ -1,17 +1,19 @@
 package dd.spring.Interceptor;
 
+import dd.spring.ExampleBean;
 import dd.util.web.WebContext;
-import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.Map;
 
-@Component
 public class BaseInterceptor implements HandlerInterceptor{
-
+    @Resource
+    private ExampleBean exampleBean;
     /**
      * 在DispatcherServlet之前执行
      * */
@@ -21,6 +23,21 @@ public class BaseInterceptor implements HandlerInterceptor{
 
         WebContext webContext = WebContext.get();
         webContext.init(request);
+
+
+        RequestDetail requestDetail = webContext.getRequestDetail();
+        String path = requestDetail.getQueryString();
+
+        List<String> whiteList = exampleBean.getWhiteList();
+        if(whiteList.contains(path)){
+            System.out.println("白名单");
+        }else{
+            System.out.println("黑名单");
+        }
+
+
+
+
         System.out.println("name:"+webContext.getBodyJsonString());
 
         Map<String,String> headers =  webContext.getHeaders();

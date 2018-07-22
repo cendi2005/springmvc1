@@ -8,6 +8,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Random;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -24,7 +25,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public int insert(Book record) {
         Book book = new Book();
-        book.setTitle("testjava");
+        book.setTitle(""+new Random().nextInt(1000));
         return bookMapper.insertSelective(book);
     }
 }
