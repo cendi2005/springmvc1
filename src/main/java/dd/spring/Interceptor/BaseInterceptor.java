@@ -26,28 +26,6 @@ public class BaseInterceptor implements HandlerInterceptor{
         Map<String,String> headers =  webContext.getHeaders();
         System.out.println("************请求头参数**********");
         System.out.println("************请求头参数**********");
-        System.out.println("************请求头参数**********");
-        System.out.println("************请求头参数**********");
-        System.out.println("************请求头参数**********");
-        System.out.println("************请求头参数**********");
-        System.out.println("************请求头参数**********");
-        System.out.println("************请求头参数**********");
-        System.out.println("************请求头参数**********");
-        System.out.println("************请求头参数**********");
-        System.out.println("************请求头参数**********");
-        System.out.println("************请求头参数**********");
-        System.out.println("************请求头参数**********");
-        System.out.println("************请求头参数**********");
-        System.out.println("************请求头参数**********");
-        System.out.println("************请求头参数**********");
-        System.out.println("************请求头参数**********");
-        System.out.println("************请求头参数**********");
-        System.out.println("************请求头参数**********");
-        System.out.println("************请求头参数**********");
-        System.out.println("************请求头参数**********");
-        System.out.println("************请求头参数**********");
-        System.out.println("************请求头参数**********");
-        System.out.println("************请求头参数**********");
         for (Map.Entry<String, String> entry : headers.entrySet()) {
             System.out.println(entry.getKey()+","+entry.getValue());
         }
