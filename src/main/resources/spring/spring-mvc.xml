@@ -65,6 +65,29 @@
         </property>
     </bean>
 
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <!--<bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">-->
+            <bean class="dd.spring.JsonZipMessageConvert">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json</value>
+                    </list>
+                </property>
+                <property name="features">
+                    <list>
+                        <value>DisableCircularReferenceDetect</value>
+                        <value>WriteMapNullValue</value>
+                        <value>WriteNullListAsEmpty</value>
+                        <value>WriteNullStringAsEmpty</value>
+                        <value>WriteNullNumberAsZero</value>
+                        <value>WriteNullBooleanAsFalse</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
 
 
 

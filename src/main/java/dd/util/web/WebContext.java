@@ -1,9 +1,11 @@
 package dd.util.web;
 
 import dd.spring.Interceptor.RequestDetail;
+import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Locale;
@@ -42,15 +44,21 @@ public class WebContext {
     }
 
 
+    private Object object;
+
 
 
 
 
     // 获取body请求体中的json数据
     public  void initParams(HttpServletRequest request){
-             bodyJsonString = request.getParameter("name");
 
-//            String bodyJsonString = IOUtils.toString(request.getInputStream(),"utf-8");
+        try {
+            String bodyJsonString = IOUtils.toString(request.getInputStream(),"utf-8");
+            this.bodyJsonString = bodyJsonString;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // 获取body请求体中的json数据

@@ -14,15 +14,22 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 public class HttpClientUtils {
     
     public static void main(String[] args) throws Exception{
 
-        HttpResponseWrap httpResponseWrap = HttpClientUtils.post("http://localhost:8888/post",null,null,"utf-8");
+            Map<String,String> headers = new HashMap<String,String>();
+            headers.put("Authorization","");
+            headers.put("Content-Type","application/json");
+            HttpResponseWrap httpResponseWrap = HttpClientUtils.post("http://11.111.11.1:8888/hello",null,headers,"utf-8");
+        System.out.println(httpResponseWrap.getStatusCode()+","+httpResponseWrap.getMessage());
 
-        System.out.println(httpResponseWrap.getData());
+//        HttpResponseWrap httpResponseWrap = HttpClientUtils.post("http://localhost:8888/hello",null,null,"utf-8");
+
+//        System.out.println(httpResponseWrap.getData());
     }
 
 
@@ -66,9 +73,9 @@ public class HttpClientUtils {
                 .setExpectContinueEnabled(true)
                 .build();
         RequestConfig requestConfig = RequestConfig.copy(defaultRequestConfig)
-                .setSocketTimeout(3000)
-                .setConnectTimeout(3000)
-                .setConnectionRequestTimeout(3000)
+                .setSocketTimeout(1000)
+                .setConnectTimeout(1000)
+                .setConnectionRequestTimeout(1000)
                 .build();
         httpPost.setConfig(requestConfig);
 
@@ -77,22 +84,25 @@ public class HttpClientUtils {
 
             closeableHttpResponse = httpclient.execute(httpPost);
 
+
+            System.out.println("after http:"+closeableHttpResponse);
+
             // http响应码
             int statusCode = closeableHttpResponse.getStatusLine().getStatusCode();
             httpResponseWrap.setStatusCode(statusCode);
-
             // 获取响应实体
             HttpEntity httpEntity = closeableHttpResponse.getEntity();
-
             // 根据输入流解析获取json格式数据
             String data = EntityUtils.toString(httpEntity);
             httpResponseWrap.setData(data);
 
             //关闭资源
             EntityUtils.consume(httpEntity);
-            closeableHttpResponse.close();
 
         } catch (IOException e) {
+            System.out.println("http 请求出错"+e.getMessage());
+            httpResponseWrap.setStatusCode(400);
+            httpResponseWrap.setMessage(e.getMessage());
             e.printStackTrace();
         }finally {
             // 关闭连接和资源
