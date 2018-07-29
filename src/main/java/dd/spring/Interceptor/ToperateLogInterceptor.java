@@ -1,5 +1,8 @@
 package dd.spring.Interceptor;
 
+import dd.util.web.WebContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.core.NamedThreadLocal;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -9,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class ToperateLogInterceptor implements HandlerInterceptor {
 
+    static Logger logger = LogManager.getLogger(ToperateLogInterceptor.class.getName());
 
 
     private NamedThreadLocal<Long> startTimeThreadLocal =
@@ -19,6 +23,12 @@ public class ToperateLogInterceptor implements HandlerInterceptor {
         long beginTime = System.currentTimeMillis();
 
         startTimeThreadLocal.set(beginTime);
+
+
+        logger.info("2 ************BaseInterceptor preHandle executed**********");
+
+        WebContext webContext = WebContext.get();
+        logger.info(webContext.getBodyJsonString());
 
         return true;
     }
@@ -36,11 +46,9 @@ public class ToperateLogInterceptor implements HandlerInterceptor {
         long beginTime = startTimeThreadLocal.get();
 
         long consumeTime = endTime - beginTime;
-//        if (consumeTime > 500) {
             //TODO 记录到日志文件
             System.out.println(
                     String.format("%s consume %d millis", request.getRequestURI(), consumeTime));
-//        }
 
     }
 }

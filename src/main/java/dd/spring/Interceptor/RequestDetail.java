@@ -1,13 +1,7 @@
 package dd.spring.Interceptor;
 
 import java.util.Locale;
-
 public class RequestDetail {
-    //获取本地IP，即服务器IP
-    private String localAddr;
-    //获取本地名称，即服务器名称
-    private String localName;
-
     public String getLocalAddr() {
         return localAddr;
     }
@@ -135,6 +129,11 @@ public class RequestDetail {
     public void setServletPath(String servletPath) {
         this.servletPath = servletPath;
     }
+
+    //获取本地IP，即服务器IP
+    private String localAddr;
+    //获取本地名称，即服务器名称
+    private String localName;
 
     //获取本地端口号，即Tomcat端口号
     private int localPort;

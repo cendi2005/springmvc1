@@ -56,6 +56,16 @@ public class JedisClientSingle implements JedisClient {
     }
 
     @Override
+    public String setnx(String key, String value) {
+        return this.excute(new JedisCallback<String, Jedis>() {
+            @Override
+            public String doJedisCallbak(Jedis jedis) {
+                return jedis.setex(key,3600,value);
+            }
+        });
+    }
+
+    @Override
     public Long incr(String key) {
         return this.excute((jedis) -> {return jedis.incr(key); });
     }

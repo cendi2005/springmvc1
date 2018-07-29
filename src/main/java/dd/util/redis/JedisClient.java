@@ -12,4 +12,5 @@ public interface JedisClient {
     Long ttl(String key);
     Long del(String key);
     Long hdel(String hkey, String key);
+    String setnx(String key, String value);
 }

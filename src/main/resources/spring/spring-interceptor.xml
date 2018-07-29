@@ -14,8 +14,22 @@
 
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
+            <bean id="baseInterceptor2" class="dd.spring.Interceptor.BaseInterceptor2"></bean>
+        </mvc:interceptor>
+
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean id="baseInterceptor3" class="dd.spring.Interceptor.BaseInterceptor3"></bean>
+        </mvc:interceptor>
+
+
+
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
             <bean id="toperateLogInterceptor" class="dd.spring.Interceptor.ToperateLogInterceptor"/>
         </mvc:interceptor>
 
     </mvc:interceptors>
+
+
 </beans>

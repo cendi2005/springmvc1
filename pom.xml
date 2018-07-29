@@ -6,8 +6,9 @@
 
     <groupId>dd</groupId>
     <artifactId>dd</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
+    <version>mvc</version>
+    <packaging>war</packaging>
+
 
     <name>dd Maven Webapp</name>
     <!-- FIXME change it to the project's website -->
@@ -315,11 +316,67 @@
             <version>3.22.0-GA</version>
         </dependency>
 
-
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+            <version>3.2.0</version>
+        </dependency>
 
     </dependencies>
 
+
+    <!--不同环境 -->
+    <profiles>
+        <profile>
+            <!-- 开发环境 -->
+            <id>dev</id>
+            <build>
+                <filters>
+                    <filter>src/main/resources/filters/dev.properties</filter>
+                </filters>
+            </build>
+            <!-- 默认激活本环境 -->
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <!-- 生产环境 -->
+            <id>pro</id>
+            <build>
+                <filters>
+                    <filter>src/main/resources/filters/pro.properties</filter>
+                </filters>
+            </build>
+        </profile>
+        <profile>
+            <!-- 测试环境 -->
+            <id>test</id>
+            <build>
+                <filters>
+                    <filter>src/main/resources/filters/test.properties</filter>
+                </filters>
+            </build>
+        </profile>
+    </profiles>
+
+
     <build>
+
+        <resources>
+            <!-- 指定需要编译的目录 -->
+            <resource>
+                <directory>src/main/resources</directory>
+                <!--可以在此配置过滤文件  -->
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <!--开启filtering功能  -->
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
         <plugins>
             <!--mybaits 自动生成插件-->
             <plugin>
@@ -333,18 +390,38 @@
             </plugin>
 
             <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.4.4.v20170414</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
                 <configuration>
-                    <scanIntervalSeconds>5</scanIntervalSeconds>
-                    <webApp>
-                        <contextPath>/</contextPath>
-                    </webApp>
+                    <!-- 对丢失web.xml检测机制进行忽略， Dynamic Web Module 3.0 工程时代不需要web.xml文件注册相关内容的，所以工程默认不生成web.xml。-->
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+                <executions>
+                    <execution>
+                        <id>default-compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!-- 使用jdk1版本时使用该配置，如果要使用jdk1.8，则下面2行要修改为1.8 -->
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
+
         </plugins>
     </build>
+
 
 </project>

@@ -65,6 +65,29 @@
         </property>
     </bean>
 
+
+
+    <bean id="methodTimeAdvice" class="dd.spring.MethodTimeAdvice" />
+
+
+    <!-- 根据 Bean 的名字自动实现代理拦截 -->
+    <bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+
+        <property name="interceptorNames">
+            <list>
+                <value>methodTimeAdvice</value>
+            </list>
+        </property>
+
+        <property name="beanNames">
+            <list>
+                <!-- 添加到其中的 Bean 自动就被代理拦截了 -->
+                <value>*Mapper</value>
+            </list>
+        </property>
+    </bean>
+
+
     <mvc:annotation-driven>
         <mvc:message-converters>
             <!--<bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">-->

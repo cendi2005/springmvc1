@@ -25,7 +25,7 @@ public class HttpClientUtils {
             headers.put("Authorization","");
             headers.put("Content-Type","application/json");
             HttpResponseWrap httpResponseWrap = HttpClientUtils.post("http://11.111.11.1:8888/hello",null,headers,"utf-8");
-        System.out.println(httpResponseWrap.getStatusCode()+","+httpResponseWrap.getMessage());
+            System.out.println(httpResponseWrap.getStatusCode()+","+httpResponseWrap.getMessage());
 
 //        HttpResponseWrap httpResponseWrap = HttpClientUtils.post("http://localhost:8888/hello",null,null,"utf-8");
 

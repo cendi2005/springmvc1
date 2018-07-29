@@ -1,10 +1,16 @@
 package dd.pojo.VO;
 
-import lombok.Data;
 import org.springframework.stereotype.Component;
 
-@Data
 @Component
 public class BookVO {
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     private String title;
 }
