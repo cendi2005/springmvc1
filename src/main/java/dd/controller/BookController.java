@@ -65,7 +65,7 @@ public class BookController {
 
         BookVO bookVO = bookService.selectByPrimaryKey(1L);
         System.out.println(bookVO.getTitle());
-        return "hello";
+        return "hello2222";
     }
 
 }
