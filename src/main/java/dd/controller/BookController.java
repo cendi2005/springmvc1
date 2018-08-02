@@ -1,6 +1,5 @@
 package dd.controller;
 
-import dd.pojo.VO.BookVO;
 import dd.service.BookService;
 import dd.spring.ExampleBean;
 import dd.util.redis.JedisClientSingle;
@@ -64,9 +63,8 @@ public class BookController {
 //        WebContext webContext = WebContext.get();
 //        String str = webContext.getBodyJsonString();
 
-        BookVO bookVO = bookService.selectByPrimaryKey(1L);
-        System.out.println(bookVO.getTitle());
-        return "hello2222";
+//        BookVO bookVO = bookService.selectByPrimaryKey(1L);
+        return "hello world!";
     }
 
 }
