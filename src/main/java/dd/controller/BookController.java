@@ -35,7 +35,9 @@ public class BookController {
         String name = request.getParameter("name");
 
         logger.info("===========name========:"+name);
+        logger.info("===========name1========:"+name);
 
+//        logger.info("info");
 //        logger.info("info");
 //        logger.error("error");
 //        logger.debug("debug");
